@@ -1,20 +1,24 @@
 # Data-Pipelines-with-Airflow
 Data Pipelines with Apache Airflow
 
-# Introduction
+## Introduction
 A music streaming company, Sparkify, has decided that it is time to introduce more automation and monitoring to their data warehouse ETL pipelines and come to the conclusion that the best tool to achieve this is **Apache Airflow**.
 
 The aim of this project is to create high grade data pipelines that are dynamic and built from reusable tasks, can be monitored, and allow easy backfills. Since data quality plays a big part when analyses are executed on top the data warehouse, we incorporate tests against the  datasets after the ETL steps have been executed to catch any discrepancies in the datasets.
 
 The source data resides in S3 and needs to be processed in Sparkify's data warehouse in Amazon Redshift. The source datasets consist of JSON logs that tell about user activity in the application and JSON metadata about the songs the users listen to.
 
-# Project Overview
+## Project Overview
 This project needs us to use the core concepts of Apache Airflow. To complete this project, I will need to create my own custom operators to perform tasks such as staging the data, filling the data warehouse, and running checks on the data as the final step.
 
 As part of the guideline, the screenshot of the DAG has been provided below:
 ![image](https://github.com/udacity/cd12380-data-pipelines-with-airflow/blob/main/assets/final_project_dag_graph2.png)
 
-# Project Datasets
+## Project Datasets
+For this project, you'll be working with two datasets. Here are the s3 links for each:
+
+**Log data:** s3://udacity-dend/log_data
+**Song data:** s3://udacity-dend/song-data
 
 ## The Implemented DAG workflow:
 
