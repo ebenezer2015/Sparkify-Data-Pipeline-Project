@@ -18,6 +18,7 @@ As part of the guideline, the screenshot of the DAG has been provided below:
 For this project, you'll be working with two datasets. Here are the s3 links for each:
 
 **Log data:** s3://udacity-dend/log_data
+
 **Song data:** s3://udacity-dend/song-data
 
 ## The Implemented DAG workflow:
