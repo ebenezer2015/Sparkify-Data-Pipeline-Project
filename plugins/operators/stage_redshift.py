@@ -41,14 +41,15 @@ class StageToRedshiftOperator(BaseOperator):
 
     def execute(self, context):
         """
-        This operator copies data from S3 to Redshift staging tables. It has the following parameters:
-        - redshift_conn_id: contains the connection details to the data warehouse in Amazon Redshift (from in Airflow)
-        - aws_credentials_id: contains the credentials to connect to the S3 bucket (from in Airflow)
-        - table: contains the name of the table where the data from S3 is to be copied.
-        - s3_bucket: contains info on the S3 bucket where the information is located
-        - s3_key: contains info on the S3 bucket where the information is located
-        - region: contains the region where the S3 bucket is located
-        - json: JSON formatting parameter
+        This operator ingest data from S3 to Redshift staging tables. It has the following parameters:
+        - redshift_conn_id : it contains the connection credentials to the data warehouse in Amazon Redshift (from within Airflow)
+        - aws_credentials_id: it contains the connection credentials required to connect to the S3 bucket (from within Airflow)
+        - table: it contains the name of the table where the data from S3 is to be copied.
+        - s3_bucket: it contains bucket name of the S3 bucket where the data is stored. Ex s3_bucket = 'my-bucket'
+        - s3_key: it contains the bucket path of the S3 bucket where the data is stored. Xx s3_key = 'my-folder/my-file.txt'
+        - region: it contains the region where the S3 bucket is located
+        - json: JSON formatting parameter.
+        
         """
 
         self.log.info(f"Starting the staging step for {self.table} table.")
@@ -60,7 +61,7 @@ class StageToRedshiftOperator(BaseOperator):
         self.log.info(f"Clearing data from destination {self.table} table on Redshift")
         redshift.run("DELETE FROM {}".format(self.table))
         
-        self.log.info(f"Copying data from S3 to {self.table} table on Redshift")
+        self.log.info(f"Started the copying data from S3 to table: {self.table} on Redshift")
         rendered_key = self.s3_key.format(**context)
         s3_path = "s3://{}/{}".format(self.s3_bucket, rendered_key)
         formatted_sql = StageToRedshiftOperator.copy_sql.format(
@@ -72,7 +73,7 @@ class StageToRedshiftOperator(BaseOperator):
             self.json
         )
         redshift.run(formatted_sql)
-        self.log.info(f"Copying to {self.table} table completed successfully ")
+        self.log.info(f"Copying to table: {self.table} has completed successfully ")
 
 
 

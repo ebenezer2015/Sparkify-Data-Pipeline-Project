@@ -24,9 +24,9 @@ class LoadDimensionOperator(BaseOperator):
     def execute(self, context):
         """
         This operator loads data from the staging tables to the dimension tables. It requires the following parameters:
-            redshift_conn_id : contains the connection details to the data warehouse in Amazon Redshift (from in Airflow)
-            table : the name of the destination dimension table
-            sql_statement : the SQL query to get the data to be inserted in the destination table
+            redshift_conn_id : it contains the connection credentials to the data warehouse in Amazon Redshift (from within Airflow).
+            table : It contains the name of the destination dimension table.
+            sql_statement : It contains the SQL query for the data ingestion into the destination table.
             truncate-insert : boolean indicating whether the dimension table is to be emptied before inserting the data
         """
         self.log.info("Loading data into the {} table".format(self.table))
@@ -40,4 +40,4 @@ class LoadDimensionOperator(BaseOperator):
         completeSql = "INSERT INTO {} ".format(self.table) + self.sql_statement
         self.log.info(completeSql)
         redshift.run(completeSql)
-        self.log.info("Insertion into the {} table completed.".format(self.table))        
+        self.log.info("Inserting data into table: {} is completed.".format(self.table))        

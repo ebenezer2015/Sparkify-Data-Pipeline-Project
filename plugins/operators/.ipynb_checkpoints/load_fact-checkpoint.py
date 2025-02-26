@@ -20,9 +20,10 @@ class LoadFactOperator(BaseOperator):
 
     def execute(self, context):
         """
-        This operator collects data from the staging tables and inserts it into the fact table. It uses the following parameters: 
-            redshift_conn_id : contains the connection details to the data warehouse in Amazon Redshift (from in Airflow)
-            sql_statement : contains the SQL statement collect the data that should be in the fact table.
+        This operator is used to collect data from the staging tables and insert it into the fact table. 
+        It accepts the following arguments: 
+            redshift_conn_id : it contains the connection credentials to the data warehouse in Amazon Redshift (from within Airflow).
+            sql_statement : It contains the SQL statement to collect the data that should be in the fact table.
         """
         self.log.info("Loading data into the songplays table")
         
@@ -31,4 +32,4 @@ class LoadFactOperator(BaseOperator):
         completeSql = "INSERT INTO public.songplays " + self.sql_statement
         #insert the data
         redshift.run(completeSql)
-        self.log.info("Loading fact table completed")
+        self.log.info("Data Loading into Fact Table is completed")
